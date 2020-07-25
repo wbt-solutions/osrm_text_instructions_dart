@@ -1,6 +1,6 @@
 library osrm_text_instructions_dart;
 
-import 'package:flutter/widgets.dart';
+import 'package:meta/meta.dart';
 import 'package:osrm_dart_sdk/api.dart';
 
 import 'languages.dart';

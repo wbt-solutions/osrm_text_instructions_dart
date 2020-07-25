@@ -1,6 +1,6 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:osrm_dart_sdk/api.dart';
 import 'package:osrm_text_instructions_dart/osrm_text_instructions_dart.dart' as osrmTextInstructions;
+import 'package:test/test.dart';
 
 void main() {
   test('adds one to input values', () {
