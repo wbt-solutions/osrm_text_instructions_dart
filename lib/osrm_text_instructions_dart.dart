@@ -1,6 +1,6 @@
 library osrm_text_instructions_dart;
 
-import 'package:meta/meta.dart';
+import 'package:flutter/widgets.dart';
 import 'package:osrm_dart_sdk/api.dart';
 
 import 'languages.dart';
@@ -11,7 +11,7 @@ Map<String, dynamic> abbreviations = languages['abbreviations'];
 
 String version = "v5";
 
-capitalizeFirstLetter(String language, String string) {
+String capitalizeFirstLetter(String language, String string) {
   return "${string[0].toUpperCase()}${string.substring(1)}";
 }
 

@@ -9,10 +9,66 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  meta: ^1.2.2
+  flutter:
+    sdk: flutter
+  path: ^1.7.0
   osrm_dart_sdk:
     path: ../osrm_dart_sdk
     #git: https://github.com/wbt-solutions/osrm_dart_sdk.git
 
 dev_dependencies:
-  test: ^1.15.3
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  assets:
+    - languages/translations/ar.json
+    - languages/translations/da.json
+    - languages/translations/de.json
+    - languages/translations/en.json
+    - languages/translations/eo.json
+    - languages/translations/es.json
+    - languages/translations/es-ES.json
+    - languages/translations/fi.json
+    - languages/translations/fr.json
+    - languages/translations/he.json
+    - languages/translations/hu.json
+    - languages/translations/id.json
+    - languages/translations/it.json
+    - languages/translations/ja.json
+    - languages/translations/ko.json
+    - languages/translations/my.json
+    - languages/translations/nl.json
+    - languages/translations/no.json
+    - languages/translations/pl.json
+    - languages/translations/pt-BR.json
+    - languages/translations/pt-PT.json
+    - languages/translations/ro.json
+    - languages/translations/ru.json
+    - languages/translations/sl.json
+    - languages/translations/sv.json
+    - languages/translations/tr.json
+    - languages/translations/uk.json
+    - languages/translations/vi.json
+    - languages/translations/yo.json
+    - languages/translations/zh-Hans.json
+    - languages/grammar/da.json
+    - languages/grammar/fr.json
+    - languages/grammar/hu.json
+    - languages/grammar/ru.json
+    - languages/abbreviations/bg.json
+    - languages/abbreviations/ca.json
+    - languages/abbreviations/da.json
+    - languages/abbreviations/de.json
+    - languages/abbreviations/en.json
+    - languages/abbreviations/es.json
+    - languages/abbreviations/fr.json
+    - languages/abbreviations/he.json
+    - languages/abbreviations/hu.json
+    - languages/abbreviations/lt.json
+    - languages/abbreviations/nl.json
+    - languages/abbreviations/ru.json
+    - languages/abbreviations/sl.json
+    - languages/abbreviations/sv.json
+    - languages/abbreviations/uk.json
+    - languages/abbreviations/vi.json
