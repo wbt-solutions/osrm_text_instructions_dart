@@ -216,8 +216,8 @@ String compile({@required String language, @required RouteStep step, Options opt
     instruction = instructionObject["destination"];
   } else if (step.exits != null && instructionObject["exit"] != null) {
     instruction = instructionObject["exit"];
-  } else if (/*step.junction_name &&*/ instructionObject["junction_name"] != null) {
-    instruction = instructionObject["junction_name"];
+  //} else if (/*step.junction_name &&*/ instructionObject["junction_name"] != null) {
+  //  instruction = instructionObject["junction_name"];
   } else if (wayName != null && instructionObject["name"] != null) {
     instruction = instructionObject["name"];
   } else if (options.waypointName != null && instructionObject["named"] != null) {
