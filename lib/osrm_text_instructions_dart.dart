@@ -25,7 +25,7 @@ String ordinalize(String language, int number) {
 String directionFromDegree(String language, int degree) {
   // Transform degrees to their translated compass direction
   if (language == null) throw ('No language code provided');
-  if (degree != null && degree != 0) {
+  if (degree == null && degree != 0) {
     // step had no bearing_after degree, ignoring
     return '';
   } else if (degree >= 0 && degree <= 20) {
@@ -93,7 +93,7 @@ String getWayName(String language, RouteStep step, Options options) {
   // the ref should be used instead of the name.
   bool wayMotorway = classes.indexOf('motorway') != -1;
 
-  if (name != null && ref != null && name != ref && !wayMotorway) {
+  if (name.isNotEmpty && ref.isNotEmpty && name != ref && !wayMotorway) {
     String phrase = instructions[language][version]["phrase"]['name and ref'] ??
         instructions['en'][version]["phrase"]['name and ref'];
     wayName = tokenize(
