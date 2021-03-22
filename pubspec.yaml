@@ -11,7 +11,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  path: ^1.8.0
   osrm_dart_sdk:
     #path: ../osrm_dart_sdk
     git: https://github.com/wbt-solutions/osrm_dart_sdk.git

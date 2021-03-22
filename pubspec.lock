@@ -105,7 +105,7 @@ packages:
     source: git
     version: "0.0.1"
   path:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: path
       url: "https://pub.dartlang.org"
