@@ -19,7 +19,9 @@ String ordinalize(String language, int number) {
   // Transform numbers to their translated ordinalized value
   if (language == null) throw ('No language code provided');
 
-  return instructions[language][version]["constants"]["ordinalize"][number.toString()] ?? '';
+  return instructions[language][version]["constants"]["ordinalize"]
+          [number.toString()] ??
+      '';
 }
 
 String directionFromDegree(String language, int degree) {
@@ -31,19 +33,23 @@ String directionFromDegree(String language, int degree) {
   } else if (degree >= 0 && degree <= 20) {
     return instructions[language][version]["constants"]["direction"]["north"];
   } else if (degree > 20 && degree < 70) {
-    return instructions[language][version]["constants"]["direction"]["northeast"];
+    return instructions[language][version]["constants"]["direction"]
+        ["northeast"];
   } else if (degree >= 70 && degree <= 110) {
     return instructions[language][version]["constants"]["direction"]["east"];
   } else if (degree > 110 && degree < 160) {
-    return instructions[language][version]["constants"]["direction"]["southeast"];
+    return instructions[language][version]["constants"]["direction"]
+        ["southeast"];
   } else if (degree >= 160 && degree <= 200) {
     return instructions[language][version]["constants"]["direction"]["south"];
   } else if (degree > 200 && degree < 250) {
-    return instructions[language][version]["constants"]["direction"]["southwest"];
+    return instructions[language][version]["constants"]["direction"]
+        ["southwest"];
   } else if (degree >= 250 && degree <= 290) {
     return instructions[language][version]["constants"]["direction"]["west"];
   } else if (degree > 290 && degree < 340) {
-    return instructions[language][version]["constants"]["direction"]["northwest"];
+    return instructions[language][version]["constants"]["direction"]
+        ["northwest"];
   } else if (degree >= 340 && degree <= 360) {
     return instructions[language][version]["constants"]["direction"]["north"];
   } else {
@@ -105,12 +111,18 @@ String getWayName(String language, RouteStep step, Options options) {
       },
       options,
     );
-  } else if (name != null && ref != null && wayMotorway && RegExp(r"(/\d/)").hasMatch(ref)) {
-    wayName = options != null && options.formatToken != null ? options.formatToken('ref', ref) : ref;
+  } else if (name != null &&
+      ref != null &&
+      wayMotorway &&
+      RegExp(r"(/\d/)").hasMatch(ref)) {
+    wayName =
+        options?.formatToken != null ? options.formatToken('ref', ref) : ref;
   } else if (name == null && ref != null) {
-    wayName = options != null && options.formatToken != null ? options.formatToken('ref', ref) : ref;
+    wayName =
+        options?.formatToken != null ? options.formatToken('ref', ref) : ref;
   } else {
-    wayName = options != null && options.formatToken != null ? options.formatToken('name', name) : name;
+    wayName =
+        options?.formatToken != null ? options.formatToken('name', name) : name;
   }
 
   return wayName;
@@ -127,9 +139,14 @@ String getWayName(String language, RouteStep step, Options options) {
 /// @param  {string} opts.waypointName  Name of waypoint for arrival instruction.
 ///
 /// @return {string} Localized text instruction.
-String compile({@required String language, @required RouteStep step, Options opts}) {
+String compile({
+  @required String language,
+  @required RouteStep step,
+  Options opts,
+}) {
   if (language == null) throw ('No language code provided');
-  if (!languages['supportedCodes'].contains(language)) throw ('language code ' + language + ' not loaded');
+  if (!languages['supportedCodes'].contains(language))
+    throw ('language code ' + language + ' not loaded');
   if (step.maneuver == null) throw ('No step maneuver provided');
   var options = opts ?? Options();
 
@@ -148,7 +165,7 @@ String compile({@required String language, @required RouteStep step, Options opt
 
   if (instructions[language][version][type] == null) {
     // Log for debugging
-    print('Encountered unknown instruction type: ' + type); // eslint-disable-line no-console
+    print('Encountered unknown instruction type: $type');
     // OSRM specification assumes turn types can be added without
     // major version changes. Unknown types are to be treated as
     // type `turn` by clients
@@ -163,7 +180,8 @@ String compile({@required String language, @required RouteStep step, Options opt
     // omit side from off ramp if same as driving_side
     // note: side will be undefined if the input is from OSRM <5.14
     // but the condition should still evaluate properly regardless
-    bool omitSide = type == 'off ramp' && modifier.indexOf(side.toString()) >= 0;
+    bool omitSide =
+        type == 'off ramp' && modifier.indexOf(side.toString()) >= 0;
     if (instructions[language][version][type][modifier] != null && !omitSide) {
       instructionObject = instructions[language][version][type][modifier];
     } else {
@@ -175,19 +193,24 @@ String compile({@required String language, @required RouteStep step, Options opt
   String laneInstruction;
   switch (type) {
     case 'use lane':
-      laneInstruction = instructions[language][version]["constants"]["lanes"][laneConfig(step)];
+      laneInstruction = instructions[language][version]["constants"]["lanes"]
+          [laneConfig(step)];
       if (laneInstruction == null) {
         // If the lane combination is not found, default to continue straight
-        instructionObject = instructions[language][version]['use lane']["no_lanes"];
+        instructionObject =
+            instructions[language][version]['use lane']["no_lanes"];
       }
       break;
     case 'rotary':
     case 'roundabout':
-      if (step.rotaryName != null && step.maneuver.exit != null && instructionObject["name_exit"] != null) {
+      if (step.rotaryName != null &&
+          step.maneuver.exit != null &&
+          instructionObject["name_exit"] != null) {
         instructionObject = instructionObject["name_exit"];
       } else if (step.rotaryName != null && instructionObject["name"] != null) {
         instructionObject = instructionObject["name"];
-      } else if (step.maneuver.exit != null && instructionObject["exit"] != null) {
+      } else if (step.maneuver.exit != null &&
+          instructionObject["exit"] != null) {
         instructionObject = instructionObject["exit"];
       } else {
         instructionObject = instructionObject["default"];
@@ -210,25 +233,31 @@ String compile({@required String language, @required RouteStep step, Options opt
   //   - waypoint name (for arrive maneuver)
   //   - default
   String instruction;
-  if (step.destinations != null && step.exits && instructionObject["exit_destination"] != null) {
+  if (step.destinations != null &&
+      step.exits &&
+      instructionObject["exit_destination"] != null) {
     instruction = instructionObject["exit_destination"];
-  } else if (step.destinations != null && instructionObject["destination"] != null) {
+  } else if (step.destinations != null &&
+      instructionObject["destination"] != null) {
     instruction = instructionObject["destination"];
   } else if (step.exits != null && instructionObject["exit"] != null) {
     instruction = instructionObject["exit"];
-  //} else if (/*step.junction_name &&*/ instructionObject["junction_name"] != null) {
-  //  instruction = instructionObject["junction_name"];
+    //} else if (/*step.junction_name &&*/ instructionObject["junction_name"] != null) {
+    //  instruction = instructionObject["junction_name"];
   } else if (wayName != null && instructionObject["name"] != null) {
     instruction = instructionObject["name"];
-  } else if (options.waypointName != null && instructionObject["named"] != null) {
+  } else if (options.waypointName != null &&
+      instructionObject["named"] != null) {
     instruction = instructionObject["named"];
   } else {
     instruction = instructionObject["default"];
   }
 
   List<String> destinations = step.destinations?.toString()?.split(': ');
-  String destinationRef = destinations != null ? destinations[0].split(',')[0] : null;
-  String destination = destinations != null ? destinations[1]?.split(',')[0] : null;
+  String destinationRef =
+      destinations != null ? destinations[0].split(',')[0] : null;
+  String destination =
+      destinations != null ? destinations[1]?.split(',')[0] : null;
   String firstDestination;
   if (destination != null && destinationRef != null) {
     firstDestination = '$destinationRef: $destination';
@@ -236,7 +265,9 @@ String compile({@required String language, @required RouteStep step, Options opt
     firstDestination = destinationRef ?? destination ?? '';
   }
 
-  String nthWaypoint = options.legIndex != null && options.legIndex >= 0 && options.legIndex != options.legCount - 1
+  String nthWaypoint = options.legIndex != null &&
+          options.legIndex >= 0 &&
+          options.legIndex != options.legCount - 1
       ? ordinalize(language, options.legIndex + 1)
       : '';
 
@@ -249,7 +280,8 @@ String compile({@required String language, @required RouteStep step, Options opt
     'exit_number': ordinalize(language, step.maneuver.exit ?? 1),
     'rotary_name': step.rotaryName,
     'lane_instruction': laneInstruction,
-    'modifier': instructions[language][version]["constants"]["modifier"][modifier],
+    'modifier': instructions[language][version]["constants"]["modifier"]
+        [modifier],
     'direction': directionFromDegree(language, step.maneuver.bearingAfter),
     'nth': nthWaypoint,
     'waypoint_name': options.waypointName,
@@ -262,7 +294,10 @@ String compile({@required String language, @required RouteStep step, Options opt
 String grammarize(String language, String name, String grammar) {
   if (language == null) throw ('No language code provided');
   // Process way/rotary/any name with applying grammar rules if any
-  if (grammar != null && grammars != null && grammars[language] && grammars[language][version] != null) {
+  if (grammar != null &&
+      grammars != null &&
+      grammars[language] != null &&
+      grammars[language][version] != null) {
     List<List<String>> rules = grammars[language][version][grammar];
     if (rules != null) {
       // Pass original name to rules' regular expressions enclosed with spaces for simplier parsing
@@ -280,11 +315,20 @@ String grammarize(String language, String name, String grammar) {
   return name;
 }
 
-String tokenize(String language, String instruction, Map<String, String> tokens, Options options) {
+String tokenize(
+  String language,
+  String instruction,
+  Map<String, String> tokens,
+  Options options,
+) {
   if (language == null) throw ('No language code provided');
   // Keep this function context to use in inline function below (no arrow functions in ES4)
   bool startedWithToken = false;
-  String output = instruction.replaceAllMapped(RegExp(r"\{(\w+)(?::(\w+))?\}", caseSensitive: false), (Match match) {
+  String output = instruction.replaceAllMapped(
+      RegExp(
+        r"\{(\w+)(?::(\w+))?\}",
+        caseSensitive: false,
+      ), (Match match) {
     String token = match[0];
     String tag = match[1];
     String grammar = match[2];
@@ -299,7 +343,8 @@ String tokenize(String language, String instruction, Map<String, String> tokens,
     value = grammarize(language, value, grammar);
 
     // If this token appears at the beginning of the instruction, capitalize it.
-    if (offset == 0 && instructions[language]["meta"]["capitalizeFirstLetter"] != null) {
+    if (offset == 0 &&
+        instructions[language]["meta"]["capitalizeFirstLetter"] != null) {
       startedWithToken = true;
       value = capitalizeFirstLetter(language, value);
     }
@@ -311,7 +356,8 @@ String tokenize(String language, String instruction, Map<String, String> tokens,
     return value;
   }).replaceAll(r"/ {2}/g", ' '); // remove excess spaces
 
-  if (!startedWithToken && instructions[language]["meta"]["capitalizeFirstLetter"] != null) {
+  if (!startedWithToken &&
+      instructions[language]["meta"]["capitalizeFirstLetter"] != null) {
     return capitalizeFirstLetter(language, output);
   }
 

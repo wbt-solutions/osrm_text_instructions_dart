@@ -73,15 +73,17 @@ Map<String, dynamic> languages = {
 
 Future<void> loadLanguage(String language) async {
   if (instructions.keys.contains(language) && instructions[language] == null) {
-    instructions[language] =
-        await _load(language, "packages/osrm_text_instructions_dart/languages/translations/$language.json");
+    instructions[language] = await _load(language,
+        "packages/osrm_text_instructions_dart/languages/translations/$language.json");
   }
   if (grammars.keys.contains(language) && grammars[language] == null) {
-    grammars[language] = await _load(language, "packages/osrm_text_instructions_dart/languages/grammar/$language.json");
+    grammars[language] = await _load(language,
+        "packages/osrm_text_instructions_dart/languages/grammar/$language.json");
   }
-  if (abbreviations.keys.contains(language) && abbreviations[language] == null) {
-    abbreviations[language] =
-        await _load(language, "packages/osrm_text_instructions_dart/languages/abbreviations/$language.json");
+  if (abbreviations.keys.contains(language) &&
+      abbreviations[language] == null) {
+    abbreviations[language] = await _load(language,
+        "packages/osrm_text_instructions_dart/languages/abbreviations/$language.json");
   }
 }
 
