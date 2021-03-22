@@ -2,7 +2,7 @@ name: osrm_text_instructions_dart
 description: Text instructions from OSRM route responses
 version: 0.0.1
 authors:
-  - WBT-Solutions <development@wbt-solutions.de>
+  - wbt-solutions <development@wbt-solutions.de>
 homepage: https://github.com/wbt-solutions/osrm_text_instructions_dart
 
 environment:
