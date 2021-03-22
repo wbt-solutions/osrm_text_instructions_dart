@@ -11,10 +11,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  path: ^1.7.0
+  path: ^1.8.0
   osrm_dart_sdk:
-    path: ../osrm_dart_sdk
-    #git: https://github.com/wbt-solutions/osrm_dart_sdk.git
+    #path: ../osrm_dart_sdk
+    git: https://github.com/wbt-solutions/osrm_dart_sdk.git
 
 dev_dependencies:
   flutter_test:
